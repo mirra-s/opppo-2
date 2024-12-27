@@ -96,11 +96,17 @@ void printDishes(const vector<Dish>& dishes) {
     }
 }
 
-// Функция для сортировки блюд по цене
-void sortDishesByPrice(vector<Dish>& dishes) {
-    sort(dishes.begin(), dishes.end(), [](const Dish& a, const Dish& b) {
-        return a.price < b.price;
-        });
+// Сортировка пузырьком по цене
+void bubbleSortDishesByPrice(vector<Dish>& dishes) {
+    int n = dishes.size();
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - i - 1; ++j) {
+            if (dishes[j].price > dishes[j + 1].price) {
+                // Обмен элементов
+                swap(dishes[j], dishes[j + 1]);
+            }
+        }
+    }
 }
 
 // Функция для подсчета общей стоимости для каждого блюда
@@ -119,8 +125,8 @@ int main() {
         string filename = "oppo.txt";  // Замените на путь к вашему файлу
         vector<Dish> dishes = readDishesFromFile(filename);
 
-        // Сортировка блюд по цене
-        sortDishesByPrice(dishes);
+        // Сортировка блюд по цене с использованием пузырьковой сортировки
+        bubbleSortDishesByPrice(dishes);
         cout << "Dishes sorted by price:" << endl;
         printDishes(dishes);  // Выводим отсортированные блюда
 
